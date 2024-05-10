@@ -68,4 +68,4 @@ def trace_ip(ip: str) -> ProxyMetadataModel:
 
 def trace_me() -> ProxyMetadataModel:
     """Get your ip metadata"""
-    return ProxyMetadataModel(**fetch("http://ip-api.com/"))
+    return ProxyMetadataModel(**fetch("http://ip-api.com/json"))
