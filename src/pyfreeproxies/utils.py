@@ -8,8 +8,6 @@ contents_url: str = (
     "https://raw.githubusercontent.com/Simatwa/free-proxies/master/files"
 )
 
-proxies_update_frequency_in_seconds: int = 30 * 60
-
 requests_timeout: int = 10
 
 session = requests.Session()
@@ -18,7 +16,6 @@ session.headers = {
     "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:124.0) Gecko/20100101 Firefox/124.0",
     "Accept": "*/*",
 }
-
 
 url_map = {
     "http_proxies": contents_url + "/http.json",
@@ -29,7 +26,14 @@ url_map = {
     "proxies_metadata": contents_url + "/metadata.json",
     "last_proxies_updated_time": contents_url + "/timestamp.json",
     "proxies_generation_logs": contents_url + "/proxies.log",
+    "config_file": contents_url + "/config.json",
 }
+
+proxies_hunter_config = session.get(url_map["config_file"]).json()
+
+proxies_update_frequency_in_seconds: int = (
+    proxies_hunter_config["update_frequency_in_minutes"] * 60
+)
 
 
 def exception_handler(func):
