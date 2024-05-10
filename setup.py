@@ -35,7 +35,7 @@ setup(
             "pytgpt = pytgpt.console:main",
         ],
     },
-    install_requires=["requests"],
+    install_requires=["requests>=2.31.0", "pydantic>=2.6.4"],
     python_requires=">=3.9",
     keywords=[
         "freeproxies",
