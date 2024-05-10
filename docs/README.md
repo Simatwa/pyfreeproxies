@@ -44,13 +44,14 @@ pip install -U pyfreeproxies
    ```python
    from pyfreeproxies import FreeProxies
    import pyfreeproxies.utils as proxies_util
-   http_proxies = FreeProxies().get_socks4_proxies()
+   http_proxies = FreeProxies().get_http_proxies()
    proxy_metadata = proxies_util.trace_ip(http_proxies[0])
    print(proxy_metadata) # <class 'pyfreeproxies.models.ProxyMetadataModel'>
    """
    status='success' country='Vietnam' countryCode='VN' region='CT' regionName='Can Tho' city='Can Tho' zip='' lat=10.0359 lon=105.7808 timezone='Asia/Ho_Chi_Minh' isp='Viettel Corporation' org='VIETEL' as_='AS7552 Viettel Group' query='171.248.211.25' response_time=None continent=None continentCode=None district=None offset=None currency=None asname=None reverse=None mobile=None proxy=None hosting=None
    """
    ```
+
 ---
 
 3. Your IP Metadata
