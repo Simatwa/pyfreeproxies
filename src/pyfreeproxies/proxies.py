@@ -62,8 +62,18 @@ class FreeProxies:
         """http, socks4 and socks5 proxies"""
         return proxies_util.fetch(proxies_util.url_map["combined_proxies"])
 
-    def get_proxies_metadata(self) -> dict[str, ProxyMetadataModel]:
-        """Proxies with their info"""
+    def get_proxies_metadata(
+        self, filters: dict[str, typing.Any] = {}
+    ) -> dict[str, ProxyMetadataModel]:
+        """Proxies with their info
+
+        Args:
+            filters (dict[str, typing.Any]): Proxy metadata key and it's corresponding value. Defaults to `{}`.
+            - Case type of filter is `int|float`, comparator will be `<=` else `==`
+
+        Returns:
+            dict[str, ProxyMetadataModel]: Proxy and ProxyMetadata object.
+        """
         response: dict[str, ProxyMetadataModel] = {}
         for proxy, metadata in proxies_util.fetch(
             proxies_util.url_map["proxies_metadata"]
@@ -71,13 +81,30 @@ class FreeProxies:
 
             if not metadata.get("status", "") == "success":
                 continue
+            try:
+                for filter_key, filter_value in filters.items():
+                    metadata_value: typing.Any = metadata.get(filter_key)
+                    if isinstance(metadata_value, (float, int)):
+                        assert metadata_value <= filter_value
+                    else:
+                        assert metadata_value == filter_value
+                response[proxy] = ProxyMetadataModel(**metadata)
+            except:
+                pass
 
-            response[proxy] = ProxyMetadataModel(**metadata)
         return response
 
-    def get_confirmed_working_proxies(self, **filters) -> list[str]:
-        """List of tested working proxies. **Filters are supported.**
-        - Case type of filter is `int|float`, comparator will be `<=` else `==`
+    def get_confirmed_working_proxies(
+        self, filters: dict[str, typing.Any] = {}
+    ) -> list[str]:
+        """List of tested working proxies. Filters are supported.
+
+        Args:
+            filters (dict[str, typing.Any]): Proxy `metadata key` and it's corresponding `value`. Defaults to `{}`.
+             - Case type of filter is `int|float`, comparator will be `<=` else `==`.
+
+        Returns:
+            list[str]: Proxies.
         """
         response: list[str] = []
         for proxy, metadata in proxies_util.fetch(

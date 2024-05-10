@@ -42,7 +42,7 @@ class TestFreeProxies(unittest.TestCase):
     def test_confirmed_working_proxies(self):
         """Confirmed working proxies"""
         filter = {"country": "United States"}
-        working_proxies = self.proxy.get_confirmed_working_proxies(**filter)
+        working_proxies = self.proxy.get_confirmed_working_proxies(filter)
         self.assertIsInstance(working_proxies, list)
         if working_proxies:
             ip_metadata = trace_ip(working_proxies[0])
