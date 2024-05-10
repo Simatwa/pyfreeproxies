@@ -3,7 +3,7 @@
 <!--
 <a href="https://github.com/Simatwa/pyfreeproxies/actions/workflows/python-test.yml"><img src="https://github.com/Simatwa/pyfreeproxies/actions/workflows/python-test.yml/badge.svg" alt="Python Test"/></a>
 -->
-<a href="https://github.com/Simatwa/pyfreeproxies/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/static/v1?logo=GPL&color=Blue&message=GNUv3&label=License"/></a>
+<a href="https://github.com/Simatwa/pyfreeproxies/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/static/v1?logo=GPL&color=Blue&message=GPLv3&label=License"/></a>
 <a href=""><img alt="Python version" src="https://img.shields.io/pypi/pyversions/pyfreeproxies"/></a>
 <a href="https://pypi.org/project/pyfreeproxies"><img alt="PyPi" src="https://img.shields.io/pypi/v/pyfreeproxies?color=green"/></a>
 <a href="https://github.com/psf/black"><img alt="Black" src="https://img.shields.io/badge/code%20style-black-000000.svg"/></a>
