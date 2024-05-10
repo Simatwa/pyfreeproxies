@@ -66,7 +66,7 @@ pip install -U pyfreeproxies
 
 ---
 
-# Disclaimer
+<h3 align="center">Disclaimer</h3>
 
 Please note that this project may involve the use of proxies for various purposes, including but not limited to, web scraping, data collection, or bypassing internet restrictions. It is the user's responsibility to ensure that their use of the project complies with all applicable laws and regulations, including but not limited to, copyright laws, privacy laws, and terms of service of the websites or services being accessed through the proxies.
 
