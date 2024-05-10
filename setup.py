@@ -13,7 +13,7 @@ if not PATH.exists():
 
 setup(
     name="pyfreeproxies",
-    version="0.0.1",
+    version="0.0.2",
     license="GNUv3",
     author="Smartwa",
     maintainer="Smartwa",
