@@ -10,6 +10,8 @@ contents_url: str = (
 
 proxies_update_frequency_in_seconds: int = 30 * 60
 
+requests_timeout: int = 10
+
 session = requests.Session()
 
 session.headers = {
@@ -45,6 +47,7 @@ def exception_handler(func):
 
 def fetch(*args, **kwargs) -> dict[str, typing.Any]:
     """fetch resource from internet"""
+    kwargs["timeout"] = requests_timeout
     resp = session.get(*args, **kwargs)
     resp.raise_for_status()
     return resp.json()

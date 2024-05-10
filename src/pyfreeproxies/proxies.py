@@ -77,7 +77,7 @@ class FreeProxies:
 
     def get_confirmed_working_proxies(self, **filters) -> list[str]:
         """List of tested working proxies. **Filters are supported.**
-        - Case type of filter is int|float, filter will be `<=` else `==`
+        - Case type of filter is `int|float`, comparator will be `<=` else `==`
         """
         response: list[str] = []
         for proxy, metadata in proxies_util.fetch(
@@ -99,7 +99,8 @@ class FreeProxies:
     def get_proxies_generation_logs(self) -> str:
         "Last proxies generation logs"
         return proxies_util.session.get(
-            proxies_util.url_map["proxies_generation_logs"]
+            proxies_util.url_map["proxies_generation_logs"],
+            timeout=proxies_util.requests_timeout,
         ).text
 
     def update(self) -> "FreeProxies":
