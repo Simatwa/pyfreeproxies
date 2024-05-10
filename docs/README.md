@@ -39,7 +39,23 @@ pip install -U pyfreeproxies
 
 ---
 
-2. IP Metadata
+2. Update Aware FreeProxies
+
+   ```python
+   from pyfreeproxies import UpdateAwareFreeProxies
+   proxy = UpdateAwareFreeProxies()
+   proxy.get_http_proxies() # http proxies
+   proxy.get_socks4_proxies() # socks4 proxies 
+   proxy.get_socks5_proxies() # socks 5 proxies
+   proxy.get_combined_proxies() # http, socks4, socks5 combined.
+   proxy.get_random_proxies() # Select from the lists randomly. proxy.get_confirmed_working_proxies() # list of functional tested proxies
+   proxy.get_proxies_metadata({"country": "United States",}) # filter with proxy metadata keys.
+   proxy.is_update_available # check if there's an update to proxies.
+   ```
+
+---
+
+3. IP Metadata
 
    ```python
    from pyfreeproxies import FreeProxies
@@ -54,7 +70,7 @@ pip install -U pyfreeproxies
 
 ---
 
-3. Your IP Metadata
+4. Your IP Metadata
 
    ```python
    import pyfreeproxies.utils as proxies_util

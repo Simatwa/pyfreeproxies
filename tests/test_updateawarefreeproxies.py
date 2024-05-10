@@ -1,5 +1,5 @@
 import unittest
-from pyfreeproxies import FreeProxies
+from pyfreeproxies import UpdateAwareFreeProxies
 from pyfreeproxies.models import ProxyMetadataModel
 from pyfreeproxies.utils import trace_ip
 
@@ -7,11 +7,11 @@ from pyfreeproxies.utils import trace_ip
 class TestFreeProxies(unittest.TestCase):
 
     def setUp(self):
-        self.proxy = FreeProxies()
+        self.proxy = UpdateAwareFreeProxies()
 
     def test_timestamp_check(self):
         "Timestamp check"
-        self.assertIsInstance(self.proxy.proxies_update_available, bool)
+        self.assertIsInstance(self.proxy.is_update_available, bool)
 
     def test_http_proxies(self):
         "Http proxies fetch"
@@ -51,11 +51,6 @@ class TestFreeProxies(unittest.TestCase):
     def test_proxies_logs_availability(self):
         """Proxies generation logs availability"""
         self.assertIsInstance(self.proxy.get_proxies_generation_logs(), str)
-
-    def test_update(self):
-        """Update FreeProxies"""
-        new_FreeProxies = self.proxy.update()
-        assert hasattr(new_FreeProxies, "update")
 
 
 if __name__ == "__main__":

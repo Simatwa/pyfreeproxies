@@ -46,7 +46,7 @@ def exception_handler(func):
 
 
 def fetch(*args, **kwargs) -> dict[str, typing.Any]:
-    """fetch resource from internet"""
+    """fetch json resource from internet"""
     kwargs["timeout"] = requests_timeout
     resp = session.get(*args, **kwargs)
     resp.raise_for_status()
@@ -69,3 +69,65 @@ def trace_ip(ip: str) -> ProxyMetadataModel:
 def trace_me() -> ProxyMetadataModel:
     """Get your ip metadata"""
     return ProxyMetadataModel(**fetch("http://ip-api.com/json"))
+
+
+def filter_proxies_metadata(
+    proxies: dict[str, dict[str, typing.Any]], filters: dict[str, typing.Any] = {}
+) -> dict[str, ProxyMetadataModel]:
+    """Filter proxies metadata
+
+    Args:
+        proxies (dict[str, dict[str, typing.Any]]): Proxies.
+        filters (dict[str, typing.Any]): Proxy metadata key and it's corresponding value. Defaults to `{}`.
+        - Case type of filter is `int|float`, comparator will be `<=` else `==`
+
+    Returns:
+        dict[str, ProxyMetadataModel]: Proxies, Metadata
+    """
+    response: dict[str, ProxyMetadataModel] = {}
+
+    for proxy, metadata in proxies.items():
+
+        if not metadata.get("status", "") == "success":
+            continue
+        try:
+            for filter_key, filter_value in filters.items():
+                metadata_value: typing.Any = metadata.get(filter_key)
+                if isinstance(metadata_value, (float, int)):
+                    assert metadata_value <= filter_value
+                else:
+                    assert metadata_value == filter_value
+            response[proxy] = ProxyMetadataModel(**metadata)
+        except:
+            pass
+
+    return response
+
+
+def filter_confirmed_working_proxies(
+    proxies: dict[str, dict[str, typing.Any]], filters: dict[str, typing.Any] = {}
+) -> list[str]:
+    """Filter tested working proxies.
+
+    Args:
+        proxies (dict[str, dict[str, typing.Any]]): Proxies.
+        filters (dict[str, typing.Any]): Proxy `metadata key` and it's corresponding `value`. Defaults to `{}`.
+         - Case type of filter is `int|float`, comparator will be `<=` else `==`.
+
+    Returns:
+        list[str]: Proxies.
+    """
+    response: list[str] = []
+    for proxy, metadata in proxies.items():
+        try:
+            for filter_key, filter_value in filters.items():
+                metadata_value: typing.Any = metadata.get(filter_key)
+                if isinstance(metadata_value, (float, int)):
+                    assert metadata_value <= filter_value
+                else:
+                    assert metadata_value == filter_value
+            response.append(proxy)
+        except:
+            pass
+
+    return response

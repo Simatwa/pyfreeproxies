@@ -74,25 +74,10 @@ class FreeProxies:
         Returns:
             dict[str, ProxyMetadataModel]: Proxy and ProxyMetadata object.
         """
-        response: dict[str, ProxyMetadataModel] = {}
-        for proxy, metadata in proxies_util.fetch(
-            proxies_util.url_map["proxies_metadata"]
-        ).items():
 
-            if not metadata.get("status", "") == "success":
-                continue
-            try:
-                for filter_key, filter_value in filters.items():
-                    metadata_value: typing.Any = metadata.get(filter_key)
-                    if isinstance(metadata_value, (float, int)):
-                        assert metadata_value <= filter_value
-                    else:
-                        assert metadata_value == filter_value
-                response[proxy] = ProxyMetadataModel(**metadata)
-            except:
-                pass
-
-        return response
+        return proxies_util.filter_proxies_metadata(
+            proxies_util.fetch(proxies_util.url_map["proxies_metadata"]), filters
+        )
 
     def get_confirmed_working_proxies(
         self, filters: dict[str, typing.Any] = {}
@@ -106,22 +91,9 @@ class FreeProxies:
         Returns:
             list[str]: Proxies.
         """
-        response: list[str] = []
-        for proxy, metadata in proxies_util.fetch(
-            proxies_util.url_map["proxies_metadata"]
-        ).items():
-            try:
-                for filter_key, filter_value in filters.items():
-                    metadata_value: typing.Any = metadata.get(filter_key)
-                    if isinstance(metadata_value, (float, int)):
-                        assert metadata_value <= filter_value
-                    else:
-                        assert metadata_value == filter_value
-                response.append(proxy)
-            except:
-                pass
-
-        return response
+        return proxies_util.filter_confirmed_working_proxies(
+            proxies_util.fetch(proxies_util.url_map["proxies_metadata"]), filters
+        )
 
     def get_proxies_generation_logs(self) -> str:
         "Last proxies generation logs"
@@ -133,3 +105,113 @@ class FreeProxies:
     def update(self) -> "FreeProxies":
         """Create new class instance and update timestamp"""
         return FreeProxies()
+
+
+class UpdateAwareFreeProxies:
+    """Considers `update` in fetching proxies"""
+
+    def __init__(self):
+        self.freeProxies = FreeProxies()
+        self._http_proxies = self.freeProxies.get_http_proxies()
+        self._socks4_proxies = self.freeProxies.get_socks4_proxies()
+        self._socks5_proxies = self.freeProxies.get_socks5_proxies()
+        self._random_proxies = self.freeProxies.get_random_proxies()
+        self._combined_proxies = self.freeProxies.get_combined_proxies()
+        self._proxies_metadata = proxies_util.fetch(
+            proxies_util.url_map["proxies_metadata"]
+        )
+        self._confirmed_working_proxies = self._proxies_metadata.copy()
+        self._proxies_generation_logs = self.freeProxies.get_proxies_generation_logs()
+
+    @property
+    def is_update_available(self) -> bool:
+        """Update freeproxies if there's an update"""
+        if self.freeProxies.proxies_update_available:
+            self.freeProxies = FreeProxies()
+            return True
+        else:
+            return False
+
+    def get_http_proxies(self) -> list[str]:
+        """http proxies"""
+        if self.is_update_available:
+            self._http_proxies = self.freeProxies.get_http_proxies()
+
+        return self._http_proxies
+
+    def get_socks4_proxies(self) -> list[str]:
+        """Socks4 proxies"""
+        if self.is_update_available:
+            self._socks4_proxies = self.freeProxies.get_socks4_proxies()
+
+        return self._socks4_proxies
+
+    def get_socks5_proxies(self) -> list[str]:
+        """Socks5 proxies"""
+        if self.is_update_available:
+            self._socks5_proxies = self.freeProxies.get_socks5_proxies()
+
+        return self._socks5_proxies
+
+    def get_random_proxies(self) -> list[str]:
+        """Random proxies"""
+        if self.is_update_available:
+            self._random_proxies = self.freeProxies.get_random_proxies()
+
+        return self._random_proxies
+
+    def get_combined_proxies(self) -> dict[str, list[str]]:
+        """Combined proxies"""
+        if self.is_update_available:
+            self._combined_proxies = self.freeProxies.get_combined_proxies()
+
+        return self._combined_proxies
+
+    def get_proxies_metadata(
+        self, filters: dict[str, typing.Any] = {}
+    ) -> dict[str, ProxyMetadataModel]:
+        """Proxies with their info. `Filters are supported.`
+
+        Args:
+            filters (dict[str, typing.Any]): Proxy metadata key and it's corresponding value. Defaults to `{}`.
+            - Case type of filter is `int|float`, comparator will be `<=` else `==`
+
+        Returns:
+            dict[str, ProxyMetadataModel]: Proxy and ProxyMetadata object.
+        """
+        if self.is_update_available:
+            self._proxies_metadata = proxies_util.fetch(
+                proxies_util.url_map["proxies_metadata"]
+            )
+
+        return proxies_util.filter_proxies_metadata(self._proxies_metadata, filters)
+
+    def get_confirmed_working_proxies(
+        self, filters: dict[str, typing.Any]
+    ) -> list[str]:
+        """List of tested working proxies. `Filters are supported.`
+
+        Args:
+            filters (dict[str, typing.Any]): Proxy `metadata key` and it's corresponding `value`. Defaults to `{}`.
+             - Case type of filter is `int|float`, comparator will be `<=` else `==`.
+
+        Returns:
+            list[str]: Proxies.
+        """
+        if self.is_update_available:
+            self._confirmed_working_proxies = proxies_util.fetch(
+                proxies_util.url_map["proxies_metadata"]
+            )
+
+        return proxies_util.filter_confirmed_working_proxies(
+            self._confirmed_working_proxies, filters
+        )
+
+    def get_proxies_generation_logs(self) -> str:
+        """Proxies generation logs"""
+        if self.is_update_available:
+            self._proxies_generation_logs = (
+                self.freeProxies.get_proxies_generation_logs()
+            )
+
+        return self._proxies_generation_logs

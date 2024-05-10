@@ -1,4 +1,5 @@
 from pyfreeproxies.proxies import FreeProxies
+from pyfreeproxies.proxies import UpdateAwareFreeProxies
 
 from importlib import metadata
 
