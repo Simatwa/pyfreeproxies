@@ -32,7 +32,8 @@ pip install -U pyfreeproxies
    proxy.get_socks4_proxies() # socks4 proxies 
    proxy.get_socks5_proxies() # socks 5 proxies
    proxy.get_combined_proxies() # http, socks4, socks5 combined.
-   proxy.get_random_proxies() # Select from the lists randomly. proxy.get_confirmed_working_proxies() # list of functional tested proxies
+   proxy.get_random_proxies() # Select from the lists randomly. 
+   proxy.get_confirmed_working_proxies() # list of functional tested proxies. Support filters.
    proxy.get_proxies_metadata({"country": "United States",}) # filter with proxy metadata keys.
    proxy.proxies_update_available # check if there's an update to proxies.
    ```
@@ -48,7 +49,8 @@ pip install -U pyfreeproxies
    proxy.get_socks4_proxies() # socks4 proxies 
    proxy.get_socks5_proxies() # socks 5 proxies
    proxy.get_combined_proxies() # http, socks4, socks5 combined.
-   proxy.get_random_proxies() # Select from the lists randomly. proxy.get_confirmed_working_proxies() # list of functional tested proxies
+   proxy.get_random_proxies() # Select from the lists randomly. 
+   proxy.get_confirmed_working_proxies() # list of functional tested proxies. Support filters.
    proxy.get_proxies_metadata({"country": "United States",}) # filter with proxy metadata keys.
    proxy.is_update_available # check if there's an update to proxies.
    ```

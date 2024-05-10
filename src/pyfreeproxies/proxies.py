@@ -187,7 +187,7 @@ class UpdateAwareFreeProxies:
         return proxies_util.filter_proxies_metadata(self._proxies_metadata, filters)
 
     def get_confirmed_working_proxies(
-        self, filters: dict[str, typing.Any]
+        self, filters: dict[str, typing.Any] = {}
     ) -> list[str]:
         """List of tested working proxies. `Filters are supported.`
 
