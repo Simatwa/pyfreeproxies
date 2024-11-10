@@ -41,7 +41,7 @@ class TestFreeProxies(unittest.TestCase):
 
     def test_confirmed_working_proxies(self):
         """Confirmed working proxies"""
-        filter = {"country": "United States"}
+        filter = {"country": "Singapore"}
         working_proxies = self.proxy.get_confirmed_working_proxies(filter)
         self.assertIsInstance(working_proxies, list)
         if working_proxies:
