@@ -30,11 +30,6 @@ setup(
         "Download": "https://github.com/Simatwa/pyfreeproxies/releases",
         "Documentation": "https://github.com/Simatwa/pyfreeproxies/blob/main/docs",
     },
-    entry_points={
-        "console_scripts": [
-            "pytgpt = pytgpt.console:main",
-        ],
-    },
     install_requires=["requests>=2.31.0", "pydantic>=2.6.4"],
     python_requires=">=3.9",
     keywords=[
