@@ -5,7 +5,7 @@ from functools import wraps
 from pyfreeproxies.models import ProxyMetadataModel
 
 contents_url: str = (
-    "https://raw.githubusercontent.com/Simatwa/free-proxies/master/files"
+    "https://raw.githubusercontent.com/AlphaBei254/free-proxies/master/files"
 )
 
 requests_timeout: int = 10
