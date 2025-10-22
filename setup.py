@@ -13,7 +13,7 @@ if not PATH.exists():
 
 setup(
     name="pyfreeproxies",
-    version="0.2.2",
+    version="0.2.3",
     license="GNUv3",
     author="Smartwa",
     maintainer="Smartwa",
@@ -53,5 +53,6 @@ setup(
         "Programming Language :: Python :: 3.11",
         "Programming Language :: Python :: 3.12",
         "Programming Language :: Python :: 3.13",
+        "Programming Language :: Python :: 3.14",
     ],
 )

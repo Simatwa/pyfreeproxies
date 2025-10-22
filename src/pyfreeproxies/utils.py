@@ -5,7 +5,7 @@ from functools import wraps
 from pyfreeproxies.models import ProxyMetadataModel
 
 contents_url: str = (
-    "https://raw.githubusercontent.com/AlphaBei254/free-proxies/master/files"
+    "https://raw.githubusercontent.com/mauricegift/free-proxies/master/files"
 )
 
 requests_timeout: int = 10
@@ -102,7 +102,7 @@ def filter_proxies_metadata(
                 else:
                     assert metadata_value == filter_value
             response[proxy] = ProxyMetadataModel(**metadata)
-        except:
+        except Exception:
             pass
 
     return response
@@ -131,7 +131,7 @@ def filter_confirmed_working_proxies(
                 else:
                     assert metadata_value == filter_value
             response.append(proxy)
-        except:
+        except Exception:
             pass
 
     return response

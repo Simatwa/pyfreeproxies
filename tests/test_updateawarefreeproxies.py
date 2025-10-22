@@ -36,7 +36,7 @@ class TestFreeProxies(unittest.TestCase):
     def test_proxy_metadata(self):
         """Proxies' metadata fetch"""
         metadata = self.proxy.get_proxies_metadata()
-        self.assertTrue(type(metadata) == dict)
+        self.assertTrue(type(metadata) is dict)
         self.assertIsInstance(list(metadata.values())[0], ProxyMetadataModel)
 
     def test_confirmed_working_proxies(self):
